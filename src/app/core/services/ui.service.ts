@@ -1,17 +1,17 @@
 import { Subject } from 'rxjs';
 
 export class UIService {
-    private loader:Subject<boolean> = new Subject();
+  private loader: Subject<boolean> = new Subject();
 
-    showLoader(){
-        this.loader.next(true);
-    }
+  showLoader() {
+    this.loader.next(true);
+  }
 
-    hideLoader(){
-       this.loader.next(false); 
-    }
+  hideLoader() {
+    this.loader.next(false);
+  }
 
-    getLoader(){
-        return this.loader;
-    }
+  getLoader() {
+    return this.loader;
+  }
 }

@@ -1,8 +1,17 @@
+@import '~@angular/material/theming';
 .main-header {
-    height: 60px;
-    border-bottom: 1px solid rgba(0, 0, 0,.125);
-    padding-right: 10px;
-    padding-left: 10px;
+    background:mat-color(mat-palette($mat-indigo));
+    color:mat-color(mat-palette($mat-gray,50));
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    .main-nav{
+        height: 60px;
+        padding: 12px;
+    }
 
     &__right-menu{
         margin: 0px;
@@ -14,6 +23,6 @@
         text-decoration: none;
         font-size: 14px;
         font-weight: bold;
-        color: #0849ff;
+        color:#eee;
     }
 }

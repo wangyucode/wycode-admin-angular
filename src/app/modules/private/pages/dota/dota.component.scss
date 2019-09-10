@@ -1,0 +1,6 @@
+@import '~@angular/material/theming';
+mat-toolbar{
+    background-color: #fff;
+    color: mat-color($mat-indigo,500);
+    font-weight: bold;
+}

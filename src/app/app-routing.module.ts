@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './modules/public/login/login.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: "/dashboard",  pathMatch: 'full'},
-  {path:"login", component: LoginComponent},
-  {path: "dashboard", loadChildren: './modules/private/private.module#PrivateModule'}
+  { path: '', redirectTo: "/page/dashboard", pathMatch: 'full' },
+  { path: "login", component: LoginComponent },
+  { path: "page", loadChildren: './modules/private/private.module#PrivateModule' },
 ];
 
 @NgModule({

@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material';
 
 @Component({
     templateUrl: './private.component.html',
