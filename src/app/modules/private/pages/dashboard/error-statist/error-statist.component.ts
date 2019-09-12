@@ -1,16 +1,6 @@
 import { Component } from '@angular/core';
+import { ErrorElement, ErrorService } from '../../../service/dashboard/error.service';
 
-export interface ErrorElement {
-  path: string;
-  method: string;
-  count: number;
-}
-
-const ELEMENT_DATA: ErrorElement[] = [
-  { path: '/', method: 'GET', count: 123 },
-  { path: '/public', method: 'GET', count: 123 },
-  { path: '/xyz.html', method: 'POST', count: 123 },
-];
 
 @Component({
   selector: 'app-error-statist',
@@ -20,6 +10,18 @@ const ELEMENT_DATA: ErrorElement[] = [
 export class ErrorStatistComponent {
 
   displayedColumns: string[] = ['path', 'method', 'count'];
-  dataSource = ELEMENT_DATA;
+  dataSource: ErrorElement[];
+  day = '30';
+  code = '500';
+
+  constructor(private errorService: ErrorService) {
+    this.onQueryChange();
+  }
+
+  onQueryChange() {
+    this.errorService.getError(this.day, this.code).subscribe((data) => {
+      console.log(data);
+    });
+  }
 
 }
