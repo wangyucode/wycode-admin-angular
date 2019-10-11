@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>应用访问量</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <div class="chart-container">
+      <canvas baseChart [data]="chartData" [labels]="chartLabels" [options]="chartOptions"
+              legend="true" chartType="pie" class="chart">
+      </canvas>
+    </div>
+  </mat-card-content>
+</mat-card>

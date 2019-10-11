@@ -5,11 +5,11 @@ import { PrivateComponent } from './private.component';
 
 const routes: Routes = [
     {
-        path: "", component: PrivateComponent,
+        path: '', component: PrivateComponent,
         children: [
-            { path: "", redirectTo: 'dashboard' },
-            { path: "dashboard", loadChildren: './pages/dashboard/dashboard.module#DashboardModule' },
-            { path: "dota", loadChildren: './pages/dota/dota.module#DotaModule' },
+            { path: '', redirectTo: 'dashboard' },
+            { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardModule' },
+            { path: 'dota', loadChildren: './pages/dota/dota.module#DotaModule' },
         ]
     }
 ];

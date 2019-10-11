@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
-import { ErrorElement, ErrorService } from '../../../service/dashboard/error.service';
+import { DashboardService } from '../../../service/dashboard.service';
+import { JsonResult } from '../../../service/type';
 
+export interface ErrorElement {
+  path: string;
+  method: string;
+  count: number;
+}
 
 @Component({
   selector: 'app-error-statist',
@@ -14,13 +20,13 @@ export class ErrorStatistComponent {
   day = '30';
   code = '500';
 
-  constructor(private errorService: ErrorService) {
+  constructor(private service: DashboardService) {
     this.onQueryChange();
   }
 
   onQueryChange() {
-    this.errorService.getError(this.day, this.code).subscribe((data) => {
-      console.log(data);
+    this.service.getError(this.day, this.code).subscribe((data: JsonResult<ErrorElement[]>) => {
+      this.dataSource = data.data;
     });
   }
 
