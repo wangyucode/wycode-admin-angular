@@ -1,13 +1,11 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>访问统计</mat-card-title>
+    <mat-card-title>访问量</mat-card-title>
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content>
     <div class="chart-container">
-      <canvas baseChart [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions"
-              legend="true" chartType="line" class="chart">
-      </canvas>
+      <div id="c1"></div>
     </div>
   </mat-card-content>
 </mat-card>

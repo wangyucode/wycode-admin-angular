@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartOptions } from 'chart.js';
 import { DashboardService } from '../../../service/dashboard.service';
 import { JsonResult } from '../../../service/type';
-import { Label, SingleDataSet } from 'ng2-charts';
+import { Chart } from '@antv/g2';
+import { View } from '@antv/data-set';
 
 interface AppUse {
   app: string;
@@ -16,19 +16,14 @@ interface AppUse {
 })
 export class AppUseComponent implements OnInit {
 
-  public chartOptions: ChartOptions = {
-    responsive: true,
-    legend: { position: 'right' }
-  };
-
-  chartData: SingleDataSet = [1, 1, 1, 1, 1, 1];
-  chartLabels: Label[] = [];
+  chart: Chart;
   day = '30';
 
   constructor(private service: DashboardService) {
   }
 
   ngOnInit() {
+    this.initChart();
     this.onQueryChange();
   }
 
@@ -36,16 +31,28 @@ export class AppUseComponent implements OnInit {
     this.service.getAppUse(this.day).subscribe((data: JsonResult<AppUse[]>) => {
       console.log(data);
       if (data.success && data.data.length > 0) {
-        const use: number[] = [];
-        const app: string[] = [];
-        data.data.forEach(item => {
-          use.push(item.use);
-          app.push(item.app);
+        const dv = new View();
+        dv.source(data.data).transform({
+          type: 'percent',
+          field: 'use',
+          dimension: 'app',
+          as: 'percent'
         });
-        this.chartData = use;
-        this.chartLabels = app;
+        this.chart.source(dv);
+        this.chart.render();
+        this.chart.forceFit();
       }
     });
+  }
+
+  private initChart() {
+    this.chart = new Chart({
+      container: 'c2',
+      height: 320,
+      padding: [24, 24, 64, 24]
+    });
+    this.chart.coord('theta', { innerRadius: 0.4 });
+    this.chart.intervalStack().position('percent').color('app');
   }
 
 }

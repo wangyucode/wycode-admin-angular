@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../service/dashboard.service';
 import { JsonResult } from '../../../service/type';
 
@@ -13,7 +13,7 @@ export interface ErrorElement {
   templateUrl: './error-statist.component.html',
   styleUrls: ['./error-statist.component.css']
 })
-export class ErrorStatistComponent {
+export class ErrorStatistComponent implements OnInit {
 
   displayedColumns: string[] = ['path', 'method', 'count'];
   dataSource: ErrorElement[];
@@ -21,6 +21,9 @@ export class ErrorStatistComponent {
   code = '500';
 
   constructor(private service: DashboardService) {
+  }
+
+  ngOnInit(): void {
     this.onQueryChange();
   }
 

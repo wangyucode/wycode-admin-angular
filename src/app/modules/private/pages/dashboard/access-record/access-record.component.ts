@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
 import { DashboardService } from '../../../service/dashboard.service';
 import { JsonResult } from '../../../service/type';
-import { Label } from 'ng2-charts';
-import * as moment from 'moment';
+import { Chart } from '@antv/g2';
+import { View } from '@antv/data-set';
 
-
-const pv: ChartDataSets = { label: 'pv', data: [] };
-const uv: ChartDataSets = { label: 'uv', data: [] };
 
 @Component({
   selector: 'app-access-record',
@@ -16,18 +12,15 @@ const uv: ChartDataSets = { label: 'uv', data: [] };
 })
 export class AccessRecordComponent implements OnInit {
 
-  public chartOptions: ChartOptions = {
-    responsive: true,
-  };
-
-  chartData: ChartDataSets[] = [pv, uv];
-  chartLabels: Label[] = [];
   day = '30';
+
+  chart: Chart;
 
   constructor(private service: DashboardService) {
   }
 
   ngOnInit() {
+    this.initChart();
     this.onQueryChange();
   }
 
@@ -35,14 +28,36 @@ export class AccessRecordComponent implements OnInit {
     this.service.getAccess(this.day).subscribe((data: JsonResult<{ pv: number; uv: number; time: string }[]>) => {
       console.log(data);
       if (data.success && data.data.length > 0) {
-        data.data.map(day => {
-          pv.data.push(day.pv);
-          uv.data.push(day.uv);
-          this.chartLabels.push(moment(day.time).format('M月D日'));
+        const dv = new View().source(data.data);
+        dv.transform({
+          type: 'fold',
+          fields: ['pv', 'uv'],
+          key: 'type',
+          value: 'value'
         });
-        this.chartData = [pv, uv];
+        this.chart.source(dv);
+        this.chart.render();
+        this.chart.forceFit();
       }
     });
   }
 
+  private initChart() {
+    this.chart = new Chart({
+      container: 'c1',
+      height: 320,
+      padding: [24, 24, 64, 36]
+    });
+    const scaleProps = {
+      time: {
+        type: 'time',
+        mask: 'M/D'
+      },
+      value: {
+        min: 0
+      }
+    };
+    this.chart.scale(scaleProps);
+    this.chart.area().position('time*value').color('type').shape('smooth');
+  }
 }

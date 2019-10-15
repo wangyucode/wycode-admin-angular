@@ -28,4 +28,16 @@ export class DashboardService {
       .append('day', day);
     return this.http.get(environment.baseUrl + '/admin/dashboard/appUse', { params });
   }
+
+  getBlogAccess(day: string) {
+    const params = new HttpParams()
+      .append('day', day);
+    return this.http.get(environment.baseUrl + '/admin/dashboard/blogAccess', { params });
+  }
+
+  getAccessGeo(day: string) {
+    const params = new HttpParams()
+      .append('day', day);
+    return this.http.get(environment.baseUrl + '/admin/dashboard/geo', { params });
+  }
 }
