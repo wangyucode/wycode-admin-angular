@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/public/login/login.component';
 import { CoreModule } from './core/core.module';
 import { UIService } from './core/services/ui.service';
+import { ErrorComponent } from './modules/public/error/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
