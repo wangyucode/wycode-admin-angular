@@ -29,7 +29,6 @@ export class HotBlogComponent implements OnInit {
 
   onQueryChange() {
     this.service.getBlogAccess(this.day).subscribe((data: JsonResult<AppUse[]>) => {
-      console.log(data);
       if (data.success && data.data.length > 0) {
         const tree = { name: 'root', children: data.data };
         const dv = new View().source(tree, { type: 'hierarchy' })
@@ -59,8 +58,14 @@ export class HotBlogComponent implements OnInit {
       padding: [0, 0, 0, 0]
     });
     this.chart.legend(false);
+    this.chart.tooltip({ showTitle: false });
     this.chart.axis(false);
-    this.chart.polygon().position('x*y').color('name');
+    this.chart.polygon().position('x*y').color('name').tooltip('name*value', (name, value) => {
+      return {
+        name,
+        value: `访问量：${value}`
+      };
+    });
   }
 
 }

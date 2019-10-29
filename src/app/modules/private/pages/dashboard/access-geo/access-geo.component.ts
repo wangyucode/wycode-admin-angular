@@ -31,7 +31,6 @@ export class AccessGeoComponent implements OnInit {
 
   onQueryChange() {
     this.service.getAccessGeo(this.day).subscribe((data: JsonResult<AppUse[]>) => {
-      console.log(data);
       if (data.success && data.data.length > 0) {
         const dv = new View('back').source(worldMap, { type: 'GeoJSON' })
           .transform({
@@ -91,6 +90,7 @@ export class AccessGeoComponent implements OnInit {
     });
     this.chart.coord('rect').reflect();
     this.chart.legend(false);
+    this.chart.tooltip({ showTitle: false });
     this.chart.axis(false);
   }
 }

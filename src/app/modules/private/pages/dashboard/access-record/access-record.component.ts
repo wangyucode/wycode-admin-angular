@@ -26,7 +26,6 @@ export class AccessRecordComponent implements OnInit {
 
   onQueryChange() {
     this.service.getAccess(this.day).subscribe((data: JsonResult<{ pv: number; uv: number; time: string }[]>) => {
-      console.log(data);
       if (data.success && data.data.length > 0) {
         const dv = new View().source(data.data);
         dv.transform({

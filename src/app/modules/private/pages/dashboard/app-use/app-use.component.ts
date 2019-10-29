@@ -29,7 +29,6 @@ export class AppUseComponent implements OnInit {
 
   onQueryChange() {
     this.service.getAppUse(this.day).subscribe((data: JsonResult<AppUse[]>) => {
-      console.log(data);
       if (data.success && data.data.length > 0) {
         const dv = new View();
         dv.source(data.data).transform({
@@ -52,7 +51,13 @@ export class AppUseComponent implements OnInit {
       padding: [24, 24, 64, 24]
     });
     this.chart.coord('theta', { innerRadius: 0.4 });
-    this.chart.intervalStack().position('percent').color('app');
+    this.chart.tooltip({ title: 'use' });
+    this.chart.intervalStack().position('percent').color('app').tooltip('app*percent*use', (a, p) => {
+      return {
+        name: a,
+        value: `${(p * 100).toFixed(2)}%`
+      };
+    });
   }
 
 }
