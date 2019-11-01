@@ -26,4 +26,5 @@ import { CardHeaderTitleComponent } from './card/card-header/card-header-title/c
     CardFooterComponent
   ]
 })
-export class UiModule { }
+export class UiModule {
+}
